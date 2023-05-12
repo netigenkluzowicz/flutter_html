@@ -6,6 +6,9 @@
 
 A Flutter widget for rendering HTML and CSS as Flutter widgets.
 
+## Fork
+Iframe was removed due to outdated version of webview_flutter (current 4.x.x). 
+
 <table>
   <tr>
     <td align="center">Screenshot 1</td>
