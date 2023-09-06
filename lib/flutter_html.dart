@@ -1,13 +1,12 @@
 library flutter_html;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_html/html_parser.dart';
 import 'package:flutter_html/image_render.dart';
 import 'package:flutter_html/src/html_elements.dart';
+import 'package:flutter_html/src/navigation_delegate.dart';
 import 'package:flutter_html/style.dart';
 import 'package:html/dom.dart' as dom;
-import 'package:flutter_html/src/navigation_delegate.dart';
 
 //export render context api
 export 'package:flutter_html/html_parser.dart';
@@ -16,9 +15,9 @@ export 'package:flutter_html/image_render.dart';
 export 'package:flutter_html/src/anchor.dart';
 export 'package:flutter_html/src/interactable_element.dart';
 export 'package:flutter_html/src/layout_element.dart';
+export 'package:flutter_html/src/navigation_delegate.dart';
 export 'package:flutter_html/src/replaced_element.dart';
 export 'package:flutter_html/src/styled_element.dart';
-export 'package:flutter_html/src/navigation_delegate.dart';
 //export style api
 export 'package:flutter_html/style.dart';
 
@@ -69,6 +68,17 @@ class Html extends StatelessWidget {
         _anchorKey = anchorKey ?? GlobalKey(),
         super(key: key);
 
+/// Video and audio must be overwritten:
+/// ```
+/// customRender: {
+///   "video": (renderContext, child) {
+///     var e = renderContext.tree;
+///     var src = e.attributes["src"];
+///     var width = e.attributes["width"];
+///     var height = e.attributes["height"];
+///     return YourCustomVideo();
+///   }
+/// ```
   Html.fromDom({
     Key? key,
     GlobalKey? anchorKey,
