@@ -25,7 +25,7 @@ ImageSourceMatcher dataUriMatcher(
     };
 
 ImageSourceMatcher networkSourceMatcher({
-  List<String> schemas: const ["https", "http"],
+  List<String> schemas = const ["https", "http"],
   List<String>? domains,
   String? extension,
 }) =>
