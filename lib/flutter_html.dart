@@ -48,7 +48,7 @@ class Html extends StatelessWidget {
   /// **style** Pass in the style information for the Html here.
   /// See [its wiki page](https://github.com/Sub6Resources/flutter_html/wiki/Style) for more info.
   Html({
-    Key? key,
+    super.key,
     GlobalKey? anchorKey,
     required this.data,
     this.onLinkTap,
@@ -65,8 +65,7 @@ class Html extends StatelessWidget {
     this.navigationDelegateForIframe,
   })  : document = null,
         assert(data != null),
-        _anchorKey = anchorKey ?? GlobalKey(),
-        super(key: key);
+        _anchorKey = anchorKey ?? GlobalKey();
 
 /// Video and audio must be overwritten:
 /// ```
@@ -80,7 +79,7 @@ class Html extends StatelessWidget {
 ///   }
 /// ```
   Html.fromDom({
-    Key? key,
+    super.key,
     GlobalKey? anchorKey,
     @required this.document,
     this.onLinkTap,
@@ -97,8 +96,7 @@ class Html extends StatelessWidget {
     this.navigationDelegateForIframe,
   })  : data = null,
         assert(document != null),
-        _anchorKey = anchorKey ?? GlobalKey(),
-        super(key: key);
+        _anchorKey = anchorKey ?? GlobalKey();
 
   /// A unique key for this Html widget to ensure uniqueness of anchors
   final GlobalKey _anchorKey;
@@ -152,7 +150,7 @@ class Html extends StatelessWidget {
   /// to use NavigationDelegate.
   final NavigationDelegate? navigationDelegateForIframe;
 
-  static List<String> get tags => new List<String>.from(STYLED_ELEMENTS)
+  static List<String> get tags => List<String>.from(STYLED_ELEMENTS)
     ..addAll(INTERACTABLE_ELEMENTS)
     ..addAll(REPLACED_ELEMENTS)
     ..addAll(LAYOUT_ELEMENTS)
@@ -165,7 +163,7 @@ class Html extends StatelessWidget {
         data != null ? HtmlParser.parseHTML(data!) : document!;
     final double? width = shrinkWrap ? null : MediaQuery.of(context).size.width;
 
-    return Container(
+    return SizedBox(
       width: width,
       child: HtmlParser(
         key: _anchorKey,
@@ -223,7 +221,7 @@ class SelectableHtml extends StatelessWidget {
   /// do not work because we can't use the `ContainerSpan` class (it needs an enclosing `WidgetSpan`).
 
   SelectableHtml({
-    Key? key,
+    super.key,
     GlobalKey? anchorKey,
     required this.data,
     this.onLinkTap,
@@ -236,11 +234,10 @@ class SelectableHtml extends StatelessWidget {
     this.scrollPhysics,
   }) : document = null,
         assert(data != null),
-        _anchorKey = anchorKey ?? GlobalKey(),
-        super(key: key);
+        _anchorKey = anchorKey ?? GlobalKey();
 
   SelectableHtml.fromDom({
-    Key? key,
+    super.key,
     GlobalKey? anchorKey,
     required this.document,
     this.onLinkTap,
@@ -253,8 +250,7 @@ class SelectableHtml extends StatelessWidget {
     this.scrollPhysics,
   }) : data = null,
         assert(document != null),
-        _anchorKey = anchorKey ?? GlobalKey(),
-        super(key: key);
+        _anchorKey = anchorKey ?? GlobalKey();
 
   /// A unique key for this Html widget to ensure uniqueness of anchors
   final GlobalKey _anchorKey;
@@ -292,14 +288,14 @@ class SelectableHtml extends StatelessWidget {
   /// Allows you to override the default scrollPhysics for [SelectableText.rich]
   final ScrollPhysics? scrollPhysics;
 
-  static List<String> get tags => new List<String>.from(SELECTABLE_ELEMENTS);
+  static List<String> get tags => List<String>.from(SELECTABLE_ELEMENTS);
 
   @override
   Widget build(BuildContext context) {
     final dom.Document doc = data != null ? HtmlParser.parseHTML(data!) : document!;
     final double? width = shrinkWrap ? null : MediaQuery.of(context).size.width;
 
-    return Container(
+    return SizedBox(
       width: width,
       child: HtmlParser(
         key: _anchorKey,
@@ -313,7 +309,7 @@ class SelectableHtml extends StatelessWidget {
         shrinkWrap: shrinkWrap,
         selectable: true,
         style: style,
-        customRender: {},
+        customRender: const {},
         imageRenders: defaultImageRenders,
         tagsList: tagsList.isEmpty ? SelectableHtml.tags : tagsList,
         navigationDelegateForIframe: null,

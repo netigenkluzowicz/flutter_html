@@ -14,20 +14,20 @@ class IframeContentElement extends ReplacedElement {
   final UniqueKey key = UniqueKey();
 
   IframeContentElement({
-    required String name,
+    required super.name,
     required this.src,
     required this.width,
     required this.height,
-    required dom.Element node,
+    required dom.Element super.node,
     required this.navigationDelegate,
-  }) : super(name: name, style: Style(), node: node, elementId: node.id);
+  }) : super(style: Style(), elementId: node.id);
 
   @override
   Widget toWidget(RenderContext context) {
-    return Container(
+    return SizedBox(
       width: width ?? (height ?? 150) * 2,
       height: height ?? (width ?? 300) / 2,
-      child: Text("Iframes are currently not supported in this environment"),
+      child: const Text("Iframes are currently not supported in this environment"),
     );
   }
 }

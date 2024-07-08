@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/src/css_parser.dart';
@@ -229,9 +227,9 @@ class Style {
     this.textOverflow,
     this.textTransform = TextTransform.none,
   }) {
-    if (this.alignment == null &&
+    if (alignment == null &&
         (display == Display.BLOCK || display == Display.LIST_ITEM)) {
-      this.alignment = Alignment.centerLeft;
+      alignment = Alignment.centerLeft;
     }
   }
 
@@ -439,22 +437,22 @@ class Style {
   }
 
   Style.fromTextStyle(TextStyle textStyle) {
-    this.backgroundColor = textStyle.backgroundColor;
-    this.color = textStyle.color;
-    this.textDecoration = textStyle.decoration;
-    this.textDecorationColor = textStyle.decorationColor;
-    this.textDecorationStyle = textStyle.decorationStyle;
-    this.textDecorationThickness = textStyle.decorationThickness;
-    this.fontFamily = textStyle.fontFamily;
-    this.fontFeatureSettings = textStyle.fontFeatures;
-    this.fontSize = FontSize(textStyle.fontSize);
-    this.fontStyle = textStyle.fontStyle;
-    this.fontWeight = textStyle.fontWeight;
-    this.letterSpacing = textStyle.letterSpacing;
-    this.textShadow = textStyle.shadows;
-    this.wordSpacing = textStyle.wordSpacing;
-    this.lineHeight = LineHeight(textStyle.height ?? 1.2);
-    this.textTransform = TextTransform.none;
+    backgroundColor = textStyle.backgroundColor;
+    color = textStyle.color;
+    textDecoration = textStyle.decoration;
+    textDecorationColor = textStyle.decorationColor;
+    textDecorationStyle = textStyle.decorationStyle;
+    textDecorationThickness = textStyle.decorationThickness;
+    fontFamily = textStyle.fontFamily;
+    fontFeatureSettings = textStyle.fontFeatures;
+    fontSize = FontSize(textStyle.fontSize);
+    fontStyle = textStyle.fontStyle;
+    fontWeight = textStyle.fontWeight;
+    letterSpacing = textStyle.letterSpacing;
+    textShadow = textStyle.shadows;
+    wordSpacing = textStyle.wordSpacing;
+    lineHeight = LineHeight(textStyle.height ?? 1.2);
+    textTransform = TextTransform.none;
   }
 }
 

@@ -21,13 +21,13 @@ abstract class ReplacedElement extends StyledElement {
   PlaceholderAlignment alignment;
 
   ReplacedElement({
-    required String name,
-    required Style style,
-    required String elementId,
+    required super.name,
+    required super.style,
+    required super.elementId,
     List<StyledElement>? children,
-    dom.Element? node,
+    super.node,
     this.alignment = PlaceholderAlignment.aboveBaseline,
-  }) : super(name: name, children: children ?? [], style: style, node: node, elementId: elementId);
+  }) : super(children: children ?? []);
 
   static List<String?> parseMediaSources(List<dom.Element> elements) {
     return elements
@@ -46,11 +46,11 @@ class TextContentElement extends ReplacedElement {
   dom.Node? node;
 
   TextContentElement({
-    required Style style,
+    required super.style,
     required this.text,
     this.node,
     dom.Element? element,
-  }) : super(name: "[text]", style: style, node: element, elementId: "[[No ID]]");
+  }) : super(name: "[text]", node: element, elementId: "[[No ID]]");
 
   @override
   String toString() {
@@ -58,7 +58,7 @@ class TextContentElement extends ReplacedElement {
   }
 
   @override
-  Widget? toWidget(_) => null;
+  Widget? toWidget(context) => null;
 }
 
 /// [ImageContentElement] is a [ReplacedElement] with an image as its content.
@@ -68,11 +68,11 @@ class ImageContentElement extends ReplacedElement {
   final String? alt;
 
   ImageContentElement({
-    required String name,
+    required super.name,
     required this.src,
     required this.alt,
-    required dom.Element node,
-  }) : super(name: name, style: Style(), node: node, alignment: PlaceholderAlignment.middle, elementId: node.id);
+    required dom.Element super.node,
+  }) : super(style: Style(), alignment: PlaceholderAlignment.middle, elementId: node.id);
 
   @override
   Widget toWidget(RenderContext context) {
@@ -95,7 +95,7 @@ class ImageContentElement extends ReplacedElement {
         );
       }
     }
-    return SizedBox(width: 0, height: 0);
+    return const SizedBox(width: 0, height: 0);
   }
 }
 
@@ -104,10 +104,10 @@ class CustomAudioContentElement extends ReplacedElement {
   final List<String?> src;
 
   CustomAudioContentElement({
-    required String name,
+    required super.name,
     required this.src,
-    required dom.Element node,
-  }) : super(name: name, style: Style(), node: node, elementId: node.id);
+    required dom.Element super.node,
+  }) : super(style: Style(), elementId: node.id);
 
   @override
   Widget toWidget(RenderContext context) {
@@ -122,12 +122,12 @@ class CustomVideoElement extends ReplacedElement {
   final double? height;
 
   CustomVideoElement({
-    required String name,
+    required super.name,
     required this.src,
     required this.width,
     required this.height,
-    required dom.Element node,
-  }) : super(name: name, style: Style(), node: node, elementId: node.id);
+    required dom.Element super.node,
+  }) : super(style: Style(), elementId: node.id);
 
   @override
   Widget toWidget(RenderContext context) {
@@ -142,12 +142,12 @@ class SvgContentElement extends ReplacedElement {
   final double? height;
 
   SvgContentElement({
-    required String name,
+    required super.name,
     required this.data,
     required this.width,
     required this.height,
-    required dom.Element node,
-  }) : super(name: name, style: Style(), node: node, elementId: node.id, alignment: PlaceholderAlignment.middle);
+    required dom.Element super.node,
+  }) : super(style: Style(), elementId: node.id, alignment: PlaceholderAlignment.middle);
 
   @override
   Widget toWidget(RenderContext context) {
@@ -161,20 +161,21 @@ class SvgContentElement extends ReplacedElement {
 }
 
 class EmptyContentElement extends ReplacedElement {
-  EmptyContentElement({String name = "empty"}) : super(name: name, style: Style(), elementId: "[[No ID]]");
+  EmptyContentElement({super.name = "empty"}) : super(style: Style(), elementId: "[[No ID]]");
 
   @override
-  Widget? toWidget(_) => null;
+  Widget? toWidget(context) => null;
 }
 
 class RubyElement extends ReplacedElement {
+  @override
   dom.Element element;
 
   RubyElement({
     required this.element,
-    required List<StyledElement> children,
-    String name = "ruby"
-  }) : super(name: name, alignment: PlaceholderAlignment.middle, style: Style(), elementId: element.id, children: children);
+    required List<StyledElement> super.children,
+    super.name = "ruby"
+  }) : super(alignment: PlaceholderAlignment.middle, style: Style(), elementId: element.id);
 
   @override
   Widget toWidget(RenderContext context) {
@@ -182,11 +183,11 @@ class RubyElement extends ReplacedElement {
     List<Widget> widgets = <Widget>[];
     final rubySize = max(9.0, context.style.fontSize!.size! / 2);
     final rubyYPos = rubySize + rubySize / 2;
-    context.tree.children.forEach((c) {
+    for (var c in context.tree.children) {
       if (c is TextContentElement) {
         textNode = c.text;
       }
-      if (!(c is TextContentElement)) {
+      if (c is! TextContentElement) {
         if (c.name == "rt" && textNode != null) {
           final widget = Stack(
             alignment: Alignment.center,
@@ -213,14 +214,14 @@ class RubyElement extends ReplacedElement {
               ContainerSpan(
                   newContext: context,
                   style: context.style,
-                  child: Text(textNode!.trim(),
+                  child: Text(textNode.trim(),
                       style: context.style.generateTextStyle())),
             ],
           );
           widgets.add(widget);
         }
       }
-    });
+    }
     return Row(
       key: AnchorKey.of(context.parser.key, this),
       crossAxisAlignment: CrossAxisAlignment.end,

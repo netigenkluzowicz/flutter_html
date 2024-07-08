@@ -22,7 +22,7 @@ void main() {
           testNewParser(context);
 
           // The builder function must return a widget.
-          return Placeholder();
+          return const Placeholder();
         },
       ),
     );
@@ -40,7 +40,7 @@ void testNewParser(BuildContext context) {
     null,
     context,
   );
-  print(tree.toString());
+  debugPrint(tree.toString());
 
   tree = HtmlParser.lexDomTree(
     HtmlParser.parseHTML(
@@ -50,7 +50,7 @@ void testNewParser(BuildContext context) {
     null,
     context,
   );
-  print(tree.toString());
+  debugPrint(tree.toString());
 
   tree = HtmlParser.lexDomTree(
     HtmlParser.parseHTML("<img src='https://image.example.com' />"),
@@ -59,7 +59,7 @@ void testNewParser(BuildContext context) {
     null,
     context,
   );
-  print(tree.toString());
+  debugPrint(tree.toString());
 
   tree = HtmlParser.lexDomTree(
     HtmlParser.parseHTML(
@@ -69,7 +69,7 @@ void testNewParser(BuildContext context) {
     null,
     context,
   );
-  print(tree.toString());
+  debugPrint(tree.toString());
 
   Style style1 = Style(
     display: Display.BLOCK,

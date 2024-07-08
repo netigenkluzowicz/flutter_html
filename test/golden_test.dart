@@ -7,14 +7,14 @@ import 'test_data.dart';
 class TestApp extends StatelessWidget {
   final Widget body;
 
-  TestApp(this.body);
+  const TestApp(this.body, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         body: body,
-        appBar: AppBar(title: Text('flutter_html')),
+        appBar: AppBar(title: const Text('flutter_html')),
       ),
     );
   }

@@ -4,5 +4,7 @@ include: package:flutter_lints/flutter.yaml
 # https://dart.dev/guides/language/analysis-options
 
 analyzer:
+  errors:
+    constant_identifier_names: ignore
   exclude:
     - example/**

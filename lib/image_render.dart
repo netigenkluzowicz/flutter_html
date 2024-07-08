@@ -12,7 +12,7 @@ typedef ImageSourceMatcher = bool Function(
 );
 
 final _dataUriFormat = RegExp(
-    "^(?<scheme>data):(?<mime>image\/[\\w\+\-\.]+)(?<encoding>;base64)?\,(?<data>.*)");
+    "^(?<scheme>data):(?<mime>image/[\\w+-.]+)(?<encoding>;base64)?,(?<data>.*)");
 
 ImageSourceMatcher dataUriMatcher(
         {String? encoding = 'base64', String? mime}) =>
@@ -130,16 +130,16 @@ ImageRender networkImageRender({
           if (!completer.isCompleted) {
             context.parser.cachedImageSizes[src] = size;
             completer.complete(size);
-            image.image.resolve(ImageConfiguration()).removeListener(listener!);
+            image.image.resolve(const ImageConfiguration()).removeListener(listener!);
           }
         }, onError: (object, stacktrace) {
           if (!completer.isCompleted) {
             completer.completeError(object);
-            image.image.resolve(ImageConfiguration()).removeListener(listener!);
+            image.image.resolve(const ImageConfiguration()).removeListener(listener!);
           }
         });
 
-        image.image.resolve(ImageConfiguration()).addListener(listener);
+        image.image.resolve(const ImageConfiguration()).addListener(listener);
       }
 
       return FutureBuilder<Size>(

@@ -19,13 +19,13 @@ class IframeContentElement extends ReplacedElement {
   final String createdViewId = getRandString(10);
 
   IframeContentElement({
-    required String name,
+    required super.name,
     required this.src,
     required this.width,
     required this.height,
-    required dom.Element node,
+    required dom.Element super.node,
     required this.navigationDelegate,
-  }) : super(name: name, style: Style(), node: node, elementId: node.id);
+  }) : super(style: Style(), elementId: node.id);
 
   @override
   Widget toWidget(RenderContext context) {
@@ -36,7 +36,7 @@ class IframeContentElement extends ReplacedElement {
       ..style.border = 'none';
     //not actually an error
     ui.platformViewRegistry.registerViewFactory(createdViewId, (int viewId) => iframe);
-    return Container(
+    return SizedBox(
         width: width ?? (height ?? 150) * 2,
         height: height ?? (width ?? 300) / 2,
         child: ContainerSpan(
