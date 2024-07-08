@@ -164,7 +164,7 @@ class HtmlParser extends StatelessWidget {
       name: "[Tree Root]",
       children: <StyledElement>[],
       node: html.documentElement,
-      style: Style.fromTextStyle(Theme.of(context).textTheme.bodyText2!),
+      style: Style.fromTextStyle(Theme.of(context).textTheme.bodyMedium ?? const TextStyle()),
     );
 
     html.nodes.forEach((node) {
